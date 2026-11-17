@@ -1,0 +1,47 @@
+[
+  {
+    "name": "alsos_search_entities",
+    "description": "Search Alabama business entities by name: corporations, LLCs, LPs, LLPs, nonprofits and foreign entities qualified in Alabama, in every status (Exists, Dissolved, Withdrawn, Merged, Revoked). Alabama Secretary of State, Business Entity Records, read live. Returns {found, matches_total, results:[{entity_number, entity_id, name, name_kind, name_match, entity_type, locale, city_state, status, status_normalized}], data_as_of, source}. A row is a hit only when its name equals the query once case, punctuation, \"&\" vs \"and\" and Inc/Incorporated, LLC/L.L.C. spelling are set aside; other names containing the same words come back separately as related_names, never as matches. Answers \"is this company registered in Alabama, and is it in good standing\". e.g. {name:\"Acme Auto Leasing LLC\"}. Entity-level: no officers, members or individuals.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Company name or words in it, e.g. \"Acme Auto Leasing LLC\". Legal-form spelling does not matter."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "any",
+            "active",
+            "inactive"
+          ],
+          "description": "Keep only active entities (status Exists) or only inactive ones (dissolved, withdrawn, merged, revoked). Default any."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max matches returned, 1-50 (default 25)."
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "alsos_get_entity",
+    "description": "One Alabama business entity by its entity number: current name, entity type, status and the date of its dissolution or withdrawal, domestic or foreign, place and date of formation, date qualified in Alabama, principal address, nature of business, authorized capital, and the registered agent when it is a business. Alabama Secretary of State, Business Entity Records, read live. e.g. {entity_number:\"000-027-643\"}. Returns {found, entity, data_as_of, source}; found:false with reason no_such_entity when the number is not on the register. Individuals the register lists (incorporators, members, partners) are counted and never named.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entity_number": {
+          "type": "string",
+          "description": "Alabama entity number, as the register shows it (\"000-027-643\") or without dashes or leading zeros (\"27643\")."
+        }
+      },
+      "required": [
+        "entity_number"
+      ]
+    }
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.pipeworx-io/al-sos-business",
+  "title": "Al Sos Business",
+  "description": "Alabama business entities: search the Alabama Secretary of State's Business Entity Records by…",
+  "version": "0.1.0",
+  "websiteUrl": "https://pipeworx.io/packs/al-sos-business",
+  "repository": {
+    "url": "https://github.com/pipeworx-io/mcp-al-sos-business",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://gateway.pipeworx.io/al-sos-business/mcp"
+    }
+  ]
+}
